@@ -26,7 +26,6 @@ extra_checks: []
 | `strictness` | `standard`, `high`, `highest` | `standard` | Model concerns request review at 50%, 40% or 30%, respectively |
 | `protected_paths` | List of nonempty repository-relative globs | `[]` | Any matching changed path, including its previous name, requests review |
 | `extra_checks` | List containing only supported check names | `[]` | Adds optional model checks. Only `missing_tests` is currently supported |
-| `unsafe_keep_stale_approvals` | Boolean | `false` | Disables Okae's withdrawal of its own stale approvals. Leave omitted or false during setup |
 
 Numeric limits must be integers, not booleans or decimals. Strictness changes the model
 cutoff; it doesn't disable rules or change size limits. Unknown keys are invalid.
@@ -79,8 +78,7 @@ Have the team review and merge the config before relying on it for later PRs. Th
 uses its own head-commit file and requires human review. Don't claim a static YAML check
 simulates a live routing result.
 
-Outside shadow mode, Okae normally withdraws its own earlier approval when a new result
-requires human review, unless GitHub rulesets already prevent stale approvals counting.
-The unsafe override can leave an old approval valid for newer changes. Prefer appropriate
-branch rules over enabling it; the router currently checks rulesets, not classic branch
-protection settings.
+When an assessment requires human review, Okae withdraws all its outstanding approvals.
+A shadow assessment also withdraws all outstanding Okae approvals, including approvals
+of the current commit. Okae doesn't inspect GitHub branch rules or offer a setting to
+bypass withdrawal.
