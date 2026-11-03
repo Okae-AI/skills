@@ -5,12 +5,14 @@ description: >
   assessment, or setting up Okae and its repository review settings.
 ---
 
-# Deliver with Okae
+# Set up and deliver with Okae
 
 Okae checks PR evidence with mandatory rules, then model judgments when no rule matches.
-It routes a PR to human review or approval. A shadow pilot posts the judgment without
-submitting PR approvals or merging anything. Service access is based on the repository
-owner, not the PR author. Contributors don't need individual Okae accounts or seats.
+It returns an Approve or Review assessment. In shadow mode it publishes the assessment
+without submitting a GitHub approval. Okae doesn't merge or deploy. An Approve result
+means no concern was identified under the configured policy and available evidence;
+it doesn't establish correctness or security. Contributors don't need individual Okae
+accounts or seats.
 
 ## Read the live docs
 
@@ -21,17 +23,20 @@ provides delivery patterns; the docs explain the current product and configurati
 | Task | Start here |
 | --- | --- |
 | Understand Okae and set up a repository | [Getting started](https://docs.okae.ai/docs), [GitHub App](https://docs.okae.ai/docs/github) |
-| Understand review policy and settings | [Configuration](https://docs.okae.ai/docs/configuration), [bundled configuration reference](references/configuration.md) |
+| Understand review policy and settings | [Configuration](https://docs.okae.ai/docs/configuration), [configuration workflow](references/configuration.md) |
 | Install the App or troubleshoot an assessment | [Troubleshooting](https://docs.okae.ai/docs/troubleshooting), [bundled installation and verification](references/installation.md) |
 
-If live docs are unavailable, use the bundled references and available repository
-settings, say what you couldn't verify, and avoid inventing current product details.
+The docs own setting definitions and current product behaviour; bundled references guide
+the workflow. If live docs are unavailable, inspect existing configuration and available
+dashboard values, say what remains unverified and defer edits that depend on an unknown
+schema. Don't invent accepted settings or current product details.
 
 ## Find the useful shape
 
 Follow the part of this skill that fits the request. For delivery, work from the
-desired outcome and the team's review process. For onboarding, start with the
-organisation, repository and review preferences, then choose settings and verify setup.
+desired outcome and the team's review process. For onboarding, guide the user through
+hosted setup, optional configuration and a real assessment. Resume from their current
+progress rather than repeating completed steps.
 
 ## Deliver changes
 
@@ -60,18 +65,36 @@ its purpose, evidence and dependencies so reviewers can make an informed decisio
 
 ## Set up Okae
 
-Ask which GitHub organisation and repository to use and whether the team wants shadow
-mode or PR approvals. An organisation owner signs in, connects the workspace and installs
-the GitHub App with access to the agreed repository. Guide them through the dashboard's
-guided setup and check its real balance and readiness. One PR costs one credit; reassessments
-of that PR are free. Don't invent a balance or claim setup is complete without a published result.
+Read [installation and verification](references/installation.md) and the relevant live
+docs before guiding setup. Identify the repository and GitHub organisation from available
+context; ask only for missing choices. Explain that setup needs an organisation owner
+and selected-repository GitHub App access. Personal-account repositories aren't supported.
+
+Start at [app.okae.ai](https://app.okae.ai). Guide the user through GitHub sign-in,
+organisation connection, agreement acceptance and App installation. These hosted steps
+establish account access and processing authority. The skill supplies guidance, not an
+authenticated connection: public Okae CLI and MCP operations aren't available. Don't
+invent commands or ask the user to paste session cookies or tokens.
+
+Leave GitHub sign-in, contractual acceptance and permission grants to an authorised person.
+Explain each next step and continue when they return. If the App is already installed,
+help complete the existing connection rather than reinstalling it. Use available dashboard
+evidence or ask what the user sees; distinguish their report from checks you observed.
+
+In Getting started, choose the repository, help select a configuration approach and check
+readiness. Start new setups in shadow mode. Preserve an existing approval policy unless
+the team agrees to change it. The dashboard can provide a repository-specific agent prompt
+and a return link to verification; use that context when supplied. Check actual service
+readiness and credit balance without inventing values. Use the live credits docs for
+pricing and billing questions rather than requiring a purchase to begin.
 
 ### Choose repository settings
 
-Read [the configuration reference](references/configuration.md) when creating, changing
-or explaining `okae.yml`. Inspect the repository's own agent instructions, directory
+Read the [current configuration guide](https://docs.okae.ai/docs/configuration) and use
+the [configuration workflow](references/configuration.md) when creating, changing or
+explaining policy. Inspect the repository's own agent instructions, directory
 structure, manifests, review policies and existing config. Identify the actual repository;
-ask when the intended pilot target is unclear.
+ask when the intended target is unclear.
 
 Explain the choices: use valid existing defaults, edit repository defaults in the dashboard,
 or write `okae.yml` for settings reviewed and versioned with the code. Explicit file values
@@ -81,6 +104,7 @@ team's needs and don't change policy without their agreement.
 When the user chooses a file, inspect existing settings and propose a small config using real
 repository paths. Explain protected paths and ask about uncertain policy. Create or update
 root-level `okae.yml`, preserve unrelated settings, show the diff and follow repository rules.
+Ask before pushing, opening a PR or merging unless the user has already authorised that action.
 
 Check YAML syntax and supported keys, types and ranges with available tooling. There is
 no bundled official validator or config simulator. Distinguish a static check from a live
@@ -88,10 +112,9 @@ Okae result. Keep credentials and service-level settings out of repository confi
 
 ### Install and verify
 
-Read [installation and verification](references/installation.md) when onboarding a repo,
-checking an installation or diagnosing a missing result. Present the App installation URL
-and selected-repository steps to the authorised installer. Okae runs as a hosted GitHub
-App; the customer doesn't deploy its service in their repository.
+Use [installation and verification](references/installation.md) when checking an
+installation or diagnosing a missing result. Okae runs as a hosted GitHub App; the
+customer doesn't deploy its service in their repository.
 
 Verify installation, dashboard readiness, a published assessment and the dashboard's setup
 completion. Installing the
@@ -99,9 +122,9 @@ skill or creating YAML doesn't establish service readiness. PR assessments use t
 the assessed head commit. Changes to `okae.yml` require human review. The dashboard settings
 view previews the default branch, which can differ from the PR head.
 
-For a pilot, keep human review and existing branch protections. Check the effective
+Keep human review and existing branch protections. Check the effective
 `enable_approvals` setting and its source for shadow mode. If the team explicitly requests
-approvals, confirm the effective setting and the operator's global switch. A human-review outcome is expected routing, not
+approvals, confirm the effective setting and service approval availability. A human-review outcome is expected routing, not
 an instruction to edit application code. For processing errors, collect the PR link,
 time and error ID rather than trying to make the check green through unrelated edits.
 

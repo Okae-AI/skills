@@ -8,7 +8,9 @@ npx skills add Okae-AI/skills --skill okae
 ```
 
 Choose your agent when prompted, then ask it to use the Okae skill. The skill helps you
-plan reviewable PRs, understand assessments, choose repository settings and connect the
-GitHub App.
+plan reviewable PRs, understand assessments and complete hosted setup at
+[app.okae.ai](https://app.okae.ai). An authorised organisation owner completes GitHub
+sign-in, agreement acceptance and App installation. Use defaults or choose optional
+repository configuration, then verify a real assessment in shadow mode.
 
 See [Okae documentation](https://docs.okae.ai/docs) for configuration and setup guidance.

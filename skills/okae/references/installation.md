@@ -1,63 +1,74 @@
-# Installation and shadow-pilot verification
+# Hosted setup and verification
 
-## Before installing
+Use the [manual setup guide](https://docs.okae.ai/docs/manual) for the current hosted
+steps and [troubleshooting](https://docs.okae.ai/docs/troubleshooting) for recovery.
+The quickstart at `/docs` installs this skill; once it's loaded, continue with hosted
+setup rather than sending the user back through skill installation.
 
-Confirm with the service operator that the intended repository is approved for the pilot,
-hosting is ready and the intended approval mode is agreed. Start with
-`enable_approvals: false` unless the team explicitly requests PR approvals. Agree how private repository data is handled
-before processing it. A public App can be installed outside the pilot, but installation
-alone doesn't grant access to Okae's service.
+## Connect the organisation
 
-Okae reads PR titles, descriptions, diffs and Git metadata. When rules don't decide the
-route, the service sends PR evidence to TypeSafe's Jev API. Don't promise provider
-retention, training exclusions or a storage region without the operator's confirmed terms.
+Guide the user to [app.okae.ai](https://app.okae.ai). They need a GitHub organisation
+owner account; personal-account repositories aren't supported.
 
-## GitHub App
+An authorised owner signs in with GitHub, chooses the organisation, supplies its legal
+business name and reviews the linked terms, DPA, subprocessor list and privacy notice.
+The owner accepts on the organisation's behalf. Don't accept for them or promise data
+handling beyond those documents.
 
-The authorised installer opens:
+Follow the hosted flow to install or connect the Okae GitHub App. In GitHub, select
+**Only select repositories**, choose the intended repositories and review the displayed
+permissions. Shadow mode doesn't reduce the App's granted permissions. Return to Okae
+to complete the connection. Installing the App alone doesn't establish processing readiness.
 
-https://github.com/apps/okae-ai/installations/new
+If the App is already installed, check repository access and complete the existing
+connection. The direct [App installation link](https://github.com/apps/okae-ai/installations/new)
+is an alternative entry point; the owner still completes hosted setup and acceptance.
 
-Choose the intended GitHub organisation, then **Only select repositories** and the agreed
-pilot repository. An organisation owner completes workspace setup. Personal accounts aren't supported.
+## Choose policy and check readiness
 
-Review the permissions GitHub currently displays, including organisation Members read access
-for owner verification. Shadow mode doesn't reduce the App's granted permissions.
+In **Getting started**, select the repository. Use valid existing defaults, edit saved
+repository defaults or prepare an optional reviewed `okae.yml`. A new file isn't required.
+Check the effective approval setting and its source; start new setups with approvals off.
+Preserve existing human-review requirements and branch protections.
 
-If installed already, use the account or organisation's installed GitHub Apps settings
-to check the repository selection. No individual Okae seats are needed for PR authors.
+Check repository access, valid effective settings, active service and available credits
+in the dashboard. Use [Credits](https://docs.okae.ai/docs/credits) for current charging
+and purchasing guidance. Don't invent a balance or repeat the starter offer throughout
+setup. You can finish later and resume the hosted guide.
 
-## Verify the trial
+## Verify a real assessment
 
-In the dashboard, select the repository and use valid defaults, saved repository settings
-or a reviewed `okae.yml`. Confirm the available credit balance and readiness. Open an agreed
-small PR or push to an existing open PR. Confirm:
+Choose a suitable PR in the hosted guide, open an agreed PR or push an agreed change to
+an existing PR. These repository actions still follow the user's permissions and workflow.
+The configuration PR itself can be assessed and should require human review.
 
-- The **Assess changes** check and Okae comment appear on the assessed PR version.
-- The shadow-mode notice appears and Okae submits no approval review.
-- A green check means it would approve. A neutral result means human review or a processing
-  issue to inspect in the details. Config edits should request human review.
-- Existing human reviews and branch protections remain in place. Keep Okae's check
-  optional during the pilot.
+Check the **Assess changes** result on GitHub against the intended PR and assessed head
+commit. Inspect its details and confirm the dashboard records the assessment. A sample
+shown during setup, installed skill, generated YAML or successful installation isn't
+evidence of a completed assessment.
 
-For an explicitly approval-enabled demo, review the effective `enable_approvals` setting
-and blockers in the dashboard and confirm the operator has `APPROVE_PRS=true`. A routine result should receive
-an actual approval review; verify that review separately from the green check. If either
-switch is off, expect shadow mode instead.
+In shadow mode, verify the notice and absence of a newly submitted Okae approval. An
+Approve assessment and a submitted GitHub approval are separate facts. A Review result
+is a completed assessment with a reason for human attention. An error isn't successful
+verification. If you can't inspect the result, state what's unverified and guide the user
+to check it rather than claiming completion.
 
-Don't change branch rules or enable automatic approvals as part of ordinary pilot setup.
-Only claim the checks you actually observed.
+Enable PR approvals later only when the team requests it and service approval access
+allows it. Keep existing branch protections. Check actual GitHub reviews separately
+from assessment labels. Okae doesn't merge or inspect branch rules.
 
-## Troubleshooting
+## Recovery
 
-| Symptom | Next check |
-|---|---|
-| No Okae check | Confirm installation, selected repo and supported PR event; give the operator the PR URL and time to inspect webhook delivery |
-| Okae access required | Ask the operator to confirm repository-owner access. Changing the PR author won't fix it |
-| Invalid okae.yml | Check the assessed head commit's config against the configuration reference |
-| Couldn't check this PR | Send the operator the PR URL, assessed version, time and error ID |
-| Config seems ignored | Confirm the filename and assessed head commit; explicit file settings override saved defaults |
+| Symptom | Next step |
+| --- | --- |
+| Organisation unavailable | Check that the signed-in user is an organisation owner and the organisation installation is accessible. |
+| Repository missing | Check the App's repository selection, then refresh the connection in Okae. |
+| Agreement required | Return to hosted setup for an authorised owner to review and accept. |
+| Credits required | Open the dashboard's Credits page, then rerun the blocked check after the balance updates. Adding credits doesn't retry it automatically. |
+| Invalid configuration | Check `okae.yml` at the assessed head commit against the configuration docs. |
+| No check or a processing error | Use the troubleshooting guide; collect the PR URL, assessed revision, time and any error ID for support. |
 
-Record feedback as `PR link | Okae result | Team's judgment | Reason`, preserving which
-version was assessed when needed. Human approval alone doesn't establish that review was
-unnecessary. An authorised person can suspend or uninstall the App to stop the trial.
+Don't change unrelated code or weaken policy to obtain an Approve result. Record
+disagreements against the assessed revision. Anonymous feedback is an opinion, not
+verified correctness evidence. An authorised owner can suspend or uninstall the App
+through GitHub to stop processing.
