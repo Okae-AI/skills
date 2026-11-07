@@ -7,7 +7,7 @@ description: >
 
 # Set up and deliver with Okae
 
-Okae checks PR evidence with mandatory rules, then model judgments when no rule matches.
+Okae checks PR evidence with enabled review rules and protected paths, then model judgments when no rule matches.
 It returns an Approve or Review assessment. In shadow mode it publishes the assessment
 without submitting a GitHub approval. Okae doesn't merge or deploy. An Approve result
 means no concern was identified under the configured policy and available evidence;
@@ -100,6 +100,11 @@ Explain the choices: use valid existing defaults, edit repository defaults in th
 or write `okae.yml` for settings reviewed and versioned with the code. Explicit file values
 override saved repository defaults. A file is optional. Recommend a choice based on the
 team's needs and don't change policy without their agreement.
+
+Walk through the settings with the owner using the [configuration workflow](references/configuration.md).
+Explain the automatic review triggers and use examples from their repository. Keep defaults
+unless they choose changes, and keep new setups in shadow mode. A walkthrough can end with
+using defaults; it doesn't require creating a file or changing every setting.
 
 When the user chooses a file, inspect existing settings and propose a small config using real
 repository paths. Explain protected paths and ask about uncertain policy. Create or update

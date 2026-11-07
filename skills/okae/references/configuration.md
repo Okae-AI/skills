@@ -13,6 +13,29 @@ user choose between using valid defaults, editing saved repository defaults or m
 an optional `okae.yml` with their code. Recommend the smallest change that meets their
 needs. Preserve existing choices and explain uncertain policy decisions before editing.
 
+## Walk through settings
+
+Help the owner understand the available choices before creating or changing configuration.
+Use the live configuration reference for the accepted names, defaults and trigger definitions.
+Discuss these areas in a short conversation, starting with their current needs:
+
+- Approval mode and whether to assess draft PRs. Keep new setups in shadow mode.
+- Strictness and how readily model concerns should require human review.
+- Changed-line and changed-file limits, including when either should be disabled.
+- Protected paths that should always require human review, using real repository paths.
+- Review rules under `enabled_rules`, including which automatic triggers fit their workflow.
+
+For review rules, explain that On requires human review when a check matches. Off removes
+that trigger across the repository while model judgement, protected paths and service safeguards
+still apply. For example, disabling the deleted-files trigger can let obsolete test deletions
+reach model judgement, which can still identify meaningful lost coverage. Don't suggest turning
+checks off just to obtain an approval on the current PR.
+
+Explain per-check inheritance and the effective source: explicit head-commit YAML overrides
+saved dashboard settings for that check, while omitted checks still inherit. Use only settings
+confirmed by the live docs or available dashboard; don't assume a newly documented feature has
+reached every deployment. Preserve defaults and existing choices unless the owner agrees to changes.
+
 When a file is chosen, propose only agreed overrides and use sensitive paths that actually
 exist. Avoid copying a complete defaults snapshot. Show the diff and follow the repository's
 branch and review process. Check syntax and documented keys, types and ranges with
