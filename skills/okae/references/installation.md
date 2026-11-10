@@ -12,8 +12,14 @@ install or command flags, use [the CLI reference](https://docs.okae.ai/docs/cli)
 
 Hand the browser to the authorised organisation owner for sign-in, agreement acceptance,
 GitHub App permissions and CLI consent. Never ask them to paste tokens into chat.
-After they return, read the current repo status and effective settings. When they started
-in the dashboard, reuse their repo and branch selection and any existing settings.
+For a new workspace with zero connected repos, have the owner install or configure
+the GitHub App for the intended repository, then connect it in Okae and keep the
+initial shadow setting. In the dashboard, use the setup guide's repository picker
+and Settings. In the terminal use `okae status --json` after setup to verify the
+repo and mode, then `okae config show --live --json` for its effective policy.
+If the intended repo is missing, check the selected organisation and GitHub App
+repository access, refresh the list and resume. When the owner started in the
+dashboard, reuse their existing selection and settings.
 
 When the owner wants to try an assessment, use available GitHub tools or run
 `okae assessments run --json` without a target to list open PRs. Distinguish an empty

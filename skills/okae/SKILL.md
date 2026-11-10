@@ -1,13 +1,13 @@
 ---
 name: okae
 description: >
-  Use to set up Okae in a repo, choose repository policy, interpret an
-  assessment, or plan changes for review in a team that uses Okae.
+  Use to set up Okae, interpret assessment history, decide what a team wants
+  to delegate, tune repository policy, or plan a change for review.
 ---
 
 # Set up and deliver with Okae
 
-Okae checks PR evidence with enabled review rules and protected paths, then model judgments when no rule matches.
+Okae assesses a PR revision against the repository's policy.
 It returns an Approve or Review assessment. In shadow mode it publishes the assessment
 without submitting a GitHub approval. Okae doesn't merge or deploy. An Approve result
 means no concern was identified under the configured policy and available evidence;
@@ -39,8 +39,9 @@ alone and those that must be reviewed together. Preserve the user's scope and wo
 
 Choose PR boundaries for a coherent, safe solution. Keep implementation, tests and
 other dependent changes together when they only make sense together. When a larger task
-has independently useful pieces, consider delivering them separately; explain their
-dependencies and order. Each PR should work on its own and give reviewers the evidence
+has independently useful pieces, explain their dependencies, order and the extra cost:
+each separately assessed standard PR can use a credit, while eligible reassessments
+of the same PR are included. Each PR should work on its own and give reviewers the evidence
 they need. Don't split work merely to stay below review limits, move sensitive changes to
 different paths, or change policy to avoid review.
 
@@ -84,6 +85,30 @@ land, identify it. Offer a real assessment separately. Let the owner select the 
 before starting a run that can spend a credit.
 
 ## Deliver and verify
+
+When asked “Am I getting the most out of Okae?”, start with existing history.
+If the owner wants a higher approval rate, look for recurring changes they consider routine
+and would be comfortable delegating under a different rule setting.
+Run `okae assessments list --json` in the checkout (or add `--repo OWNER/NAME`).
+Use `--workspace` for a workspace-wide request. State which repos and how much
+history you inspected. Page with `--limit` and `--offset` if the question needs it.
+
+- Group by repository and PR number. Use the latest completed Approve or Review
+  judgement per PR in the period. Compare earlier runs by head SHA to show which
+  concerns changed. Report pending, skipped and failed runs separately, including
+  when the newest revision still awaits a judgement.
+- Use `approval_submitted` to count actual GitHub approvals. Identify shadow
+  Approve results from `approval_mode`. Read every entry in a Review's `reasons`
+  array. One PR can contribute to several reasons. A missing reason is unknown.
+- Pick a few examples and show the owner the PR, assessed revision and recorded
+  reasons. Inspect the diff at that revision when the reason alone is ambiguous.
+  Ask which of those changes they would delegate and which they want to review.
+  An overlapping reason can still require review if one setting changes.
+- Read the current effective policy before proposing an adjustment. Keep a
+  policy that matches the owner's choices. For an evidenced mismatch, follow
+  the [configuration workflow](references/configuration.md) to preview one
+  supported change. Historical results establish what happened under the
+  policy at the time. Looking them up needs no new assessment or credit.
 
 Treat the expected route as a prediction until Okae assesses the actual PR head. A small
 PR may still need human review because of its content or assessment. An approval also
