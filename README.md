@@ -1,16 +1,14 @@
 # Okae skill
 
 Help your coding agent deliver coherent changes and understand your team's Okae review
-process, or set up Okae for your GitHub organisation. From your repository, run:
+process, or set up Okae for your GitHub organisation. From a new temporary directory outside your checkout, run:
 
 ```sh
-npx skills add Okae-AI/skills --skill okae
+npx skills add Okae-AI/skills --skill okae --global
 ```
 
-Choose your agent when prompted, then ask it to use the Okae skill. The skill helps you
-plan reviewable PRs, understand assessments and complete hosted setup at
-[app.okae.ai](https://app.okae.ai). An authorised organisation owner completes GitHub
-sign-in, agreement acceptance and App installation. Use defaults or choose optional
-repository configuration, then verify a real assessment in shadow mode.
-
-See [Okae documentation](https://docs.okae.ai/docs) for configuration and setup guidance.
+Ask your agent to set up Okae in the checkout. It can guide CLI installation, inspect
+the repo and recommend settings. The owner completes sign-in and permissions in the
+browser. You can also configure the same repository in the dashboard. See the
+[terminal installation guide](https://docs.okae.ai/docs/cli#install-the-cli) and the
+[dashboard setup guide](https://docs.okae.ai/docs/manual).

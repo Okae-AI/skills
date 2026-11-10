@@ -1,8 +1,8 @@
 ---
 name: okae
 description: >
-  Use when delivering changes in a repository using Okae, understanding an
-  assessment, or setting up Okae and its repository review settings.
+  Use to set up Okae from a checkout, choose repository policy, interpret an
+  assessment, or plan changes for review in a team that uses Okae.
 ---
 
 # Set up and deliver with Okae
@@ -31,13 +31,6 @@ the workflow. If live docs are unavailable, inspect existing configuration and a
 dashboard values, say what remains unverified and defer edits that depend on an unknown
 schema. Don't invent accepted settings or current product details.
 
-## Find the useful shape
-
-Follow the part of this skill that fits the request. For delivery, work from the
-desired outcome and the team's review process. For onboarding, guide the user through
-hosted setup, optional configuration and a real assessment. Resume from their current
-progress rather than repeating completed steps.
-
 ## Deliver changes
 
 Start with the outcome the user wants and the repository's instructions. Inspect the
@@ -65,76 +58,20 @@ its purpose, evidence and dependencies so reviewers can make an informed decisio
 
 ## Set up Okae
 
-Read [installation and verification](references/installation.md) and the relevant live
-docs before guiding setup. Identify the repository and GitHub organisation from available
-context; ask only for missing choices. Explain that setup needs an organisation owner
-and selected-repository GitHub App access. Personal-account repositories aren't supported.
+Start in the user's checkout. Identify the repository from its Git remote, or ask which
+one they mean if the checkout is ambiguous. Follow [agent installation and browser
+handoff](references/installation.md) to run `okae init` with the installed CLI, or via npx if the user prefers to skip installation, and
+resume an existing workspace. The owner can also start in the dashboard and hand the
+selected repository back to you.
 
-Start at [app.okae.ai](https://app.okae.ai). Guide the user through GitHub sign-in,
-organisation connection, agreement acceptance and App installation. These hosted steps
-establish account access and processing authority. The skill supplies guidance, not an
-authenticated connection: public Okae CLI and MCP operations aren't available. Don't
-invent commands or ask the user to paste session cookies or tokens.
+Read the effective policy with `okae config show --json`. Use the
+[configuration workflow](references/configuration.md) to recommend changes that fit
+this repository. Keep existing policy when it fits. Ask the owner about consumers,
+sensitive paths and approval preferences that the checkout cannot establish.
 
-Leave GitHub sign-in, contractual acceptance and permission grants to an authorised person.
-Explain each next step and continue when they return. If the App is already installed,
-help complete the existing connection rather than reinstalling it. Use available dashboard
-evidence or ask what the user sees; distinguish their report from checks you observed.
-
-In Getting started, choose the repository, help select a configuration approach and check
-readiness. Start new setups in shadow mode. Preserve an existing approval policy unless
-the team agrees to change it. The dashboard can provide a repository-specific agent prompt
-and a return link to verification; use that context when supplied. Check actual service
-readiness and credit balance without inventing values. Use the live credits docs for
-pricing and billing questions rather than requiring a purchase to begin.
-
-### Choose repository settings
-
-Read the [current configuration guide](https://docs.okae.ai/docs/configuration) and use
-the [configuration workflow](references/configuration.md) when creating, changing or
-explaining policy. Inspect the repository's own agent instructions, directory
-structure, manifests, review policies and existing config. Identify the actual repository;
-ask when the intended target is unclear.
-
-Explain the choices: use valid existing defaults, edit repository defaults in the dashboard,
-or write `okae.yml` for settings reviewed and versioned with the code. Explicit file values
-override saved repository defaults. A file is optional. Recommend a choice based on the
-team's needs and don't change policy without their agreement.
-
-Walk through the settings with the owner using the [configuration workflow](references/configuration.md).
-Explain the automatic review triggers and use examples from their repository. Keep defaults
-unless they choose changes, and keep new setups in shadow mode. A walkthrough can end with
-using defaults; it doesn't require creating a file or changing every setting.
-
-When the user chooses a file, inspect existing settings and propose a small config using real
-repository paths. Explain protected paths and ask about uncertain policy. Create or update
-root-level `okae.yml`, preserve unrelated settings, show the diff and follow repository rules.
-Ask before pushing, opening a PR or merging unless the user has already authorised that action.
-
-Check YAML syntax and supported keys, types and ranges with available tooling. There is
-no bundled official validator or config simulator. Distinguish a static check from a live
-Okae result. Keep credentials and service-level settings out of repository config.
-
-### Install and verify
-
-Use [installation and verification](references/installation.md) when checking an
-installation or diagnosing a missing result. Okae runs as a hosted GitHub App; the
-customer doesn't deploy its service in their repository.
-
-Verify installation, dashboard readiness, a published assessment and the dashboard's setup
-completion. Installing the
-skill or creating YAML doesn't establish service readiness. PR assessments use the file in
-the assessed head commit. Changes to `okae.yml` require human review. The dashboard settings
-view previews the default branch, which can differ from the PR head.
-
-Keep human review and existing branch protections. Check the effective
-`enable_approvals` setting and its source for shadow mode. If the team explicitly requests
-approvals, confirm the effective setting and service approval availability. A human-review outcome is expected routing, not
-an instruction to edit application code. For processing errors, collect the PR link,
-time and error ID rather than trying to make the check green through unrelated edits.
-
-Finish with the config changes, checks actually performed and remaining installation or
-verification steps. Collect disagreements per PR, keeping the assessed version when needed.
+Setup ends when the owner’s choices are effective. If a file change still needs to
+land, identify it. Offer a real assessment separately. Let the owner select the PR
+before starting a run that can spend a credit.
 
 ## Deliver and verify
 
