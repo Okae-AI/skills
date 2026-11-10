@@ -58,14 +58,21 @@ its purpose, evidence and dependencies so reviewers can make an informed decisio
 
 ## Set up Okae
 
-If you are helping from a web chat or remote environment without a terminal on the owner's machine, guide them through [dashboard setup](https://docs.okae.ai/docs/manual). Send them to the [Okae dashboard](https://app.okae.ai) to sign in and connect their first repo, or open an existing repo. Stay in the chat to help them choose settings using what they see. Use this path whenever the owner prefers the dashboard.
+If the owner prefers the dashboard or you can't run commands on their machine,
+send them to the [Okae dashboard](https://app.okae.ai) to sign in with GitHub.
+The setup guide takes them from connecting a repo to their first PR assessment.
+End the handoff there. If they return with a question, help with that step.
 
-If you can run commands on the owner's machine, follow the [CLI setup guide](references/installation.md). Run `okae init` in their repo, or pass `--repo OWNER/NAME` if they know the target. For workspace onboarding before choosing a repo, run `okae login` from any directory. The owner completes sign-in and authorisation in a browser on that machine.
+For terminal setup, follow the [CLI setup guide](references/installation.md).
+Run `okae init` in the owner's repo, or pass `--repo OWNER/NAME` to select it.
+If they want to connect a workspace before choosing a repo, run `okae login`
+from any directory. The owner authorises access in a browser on the same machine.
 
-Read the effective policy in the repo's dashboard settings or with `okae config show --json`. Use the
-[configuration workflow](references/configuration.md) to recommend changes that fit
-this repository. Keep existing policy when it fits. Ask the owner about consumers,
-sensitive paths and approval preferences you can’t determine from the repo.
+When the owner wants help choosing checks, read the effective policy in the
+dashboard or with `okae config show --json`. Follow the
+[configuration workflow](references/configuration.md). Keep settings that fit.
+Ask about consumers, sensitive paths and approval preferences the repo can't
+tell you about.
 
 Setup ends when the owner’s choices are effective. If a file change still needs to
 land, identify it. Offer a real assessment separately. Let the owner select the PR

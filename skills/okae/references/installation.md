@@ -9,7 +9,6 @@ npx @okae/cli init --repo OWNER/NAME
 
 Use your trusted npm registry. If the registry or @okae scope is remapped, verify the source before running the package. Reuse the same npx prefix and directory for subsequent commands. For a global
 install or command flags, use [the CLI reference](https://docs.okae.ai/docs/cli).
-If the owner prefers the dashboard, use [manual setup](https://docs.okae.ai/docs/manual).
 
 Hand the browser to the authorised organisation owner for sign-in, agreement acceptance,
 GitHub App permissions and CLI consent. Never ask them to paste tokens into chat.
