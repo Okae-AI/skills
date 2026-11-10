@@ -1,7 +1,7 @@
 ---
 name: okae
 description: >
-  Use to set up Okae from a checkout, choose repository policy, interpret an
+  Use to set up Okae in a repo, choose repository policy, interpret an
   assessment, or plan changes for review in a team that uses Okae.
 ---
 
@@ -58,8 +58,8 @@ its purpose, evidence and dependencies so reviewers can make an informed decisio
 
 ## Set up Okae
 
-Start in the user's checkout. Identify the repository from its Git remote, or ask which
-one they mean if the checkout is ambiguous. Follow [agent installation and browser
+Start in the user’s repo. Identify the repository from its Git remote, or ask which
+one they mean if several remotes could match. Follow [agent installation and browser
 handoff](references/installation.md) to run `okae init` with the installed CLI, or via npx if the user prefers to skip installation, and
 resume an existing workspace. The owner can also start in the dashboard and hand the
 selected repository back to you.
@@ -67,7 +67,7 @@ selected repository back to you.
 Read the effective policy with `okae config show --json`. Use the
 [configuration workflow](references/configuration.md) to recommend changes that fit
 this repository. Keep existing policy when it fits. Ask the owner about consumers,
-sensitive paths and approval preferences that the checkout cannot establish.
+sensitive paths and approval preferences you can’t determine from the repo.
 
 Setup ends when the owner’s choices are effective. If a file change still needs to
 land, identify it. Offer a real assessment separately. Let the owner select the PR

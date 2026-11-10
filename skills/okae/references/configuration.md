@@ -17,5 +17,5 @@ changed, re-read current settings and review the new diff. Explain the effect of
 GitHub approvals and obtain the owner's explicit choice.
 
 Offer an `okae.yml` diff for file-controlled fields or when the team wants policy in Git.
-Before committing, run `okae config preview` in the checkout. From the temporary npx directory, pass `--repo OWNER/NAME --file /path/to/checkout/okae.yml`. Preserve unrelated policy and follow the repo's review process. Report which changes
+Before committing, run `okae config preview` in your repo. When running npx outside the repo, pass `--repo OWNER/NAME --file /path/to/your-repo/okae.yml`. Preserve unrelated policy and follow the repo's review process. Report which changes
 are already effective and which still need to land on the relevant revision.

@@ -1,14 +1,13 @@
-# Install and connect from a checkout
+# Set up Okae in your repo
 
 Use a trusted installed CLI when available. If the user prefers a global install, follow the CLI reference below. If they prefer to skip installation, run it on demand with npx. Use Node.js 24 or
-newer and a trusted npm executable. Create an empty temporary directory outside the
-target checkout, change into it, and run:
+newer and a trusted npm executable. Run this from your home directory:
 
 ```sh
 npx @okae/cli init --repo OWNER/NAME
 ```
 
-Use your trusted npm registry. If the registry or @okae scope is remapped, verify the source before running the package. Reuse the same npx prefix and temporary directory for subsequent commands. For a global
+Use your trusted npm registry. If the registry or @okae scope is remapped, verify the source before running the package. Reuse the same npx prefix and directory for subsequent commands. For a global
 install or command flags, use [the CLI reference](https://docs.okae.ai/docs/cli).
 If the owner prefers the dashboard, use [manual setup](https://docs.okae.ai/docs/manual).
 
