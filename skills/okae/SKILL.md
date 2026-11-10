@@ -58,13 +58,11 @@ its purpose, evidence and dependencies so reviewers can make an informed decisio
 
 ## Set up Okae
 
-Start in the user’s repo. Identify the repository from its Git remote, or ask which
-one they mean if several remotes could match. Follow [agent installation and browser
-handoff](references/installation.md) to run `okae init` with the installed CLI, or via npx if the user prefers to skip installation, and
-resume an existing workspace. The owner can also start in the dashboard and hand the
-selected repository back to you.
+If you are helping from a web chat or remote environment without a terminal on the owner's machine, guide them through [dashboard setup](https://docs.okae.ai/docs/manual). Send them to the [Okae dashboard](https://app.okae.ai) to sign in and connect their first repo, or open an existing repo. Stay in the chat to help them choose settings using what they see. Use this path whenever the owner prefers the dashboard.
 
-Read the effective policy with `okae config show --json`. Use the
+If you can run commands on the owner's machine, follow the [CLI setup guide](references/installation.md). Run `okae init` in their repo, or pass `--repo OWNER/NAME` if they know the target. For workspace onboarding before choosing a repo, run `okae login` from any directory. The owner completes sign-in and authorisation in a browser on that machine.
+
+Read the effective policy in the repo's dashboard settings or with `okae config show --json`. Use the
 [configuration workflow](references/configuration.md) to recommend changes that fit
 this repository. Keep existing policy when it fits. Ask the owner about consumers,
 sensitive paths and approval preferences you can’t determine from the repo.
