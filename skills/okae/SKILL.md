@@ -68,6 +68,11 @@ Run `okae init` in the owner's repo, or pass `--repo OWNER/NAME` to select it.
 If they want to connect a workspace before choosing a repo, run `okae login`
 from any directory. The owner authorises access in a browser on the same machine.
 
+During browser setup on either path, the organisation owner installs the Okae
+GitHub App if needed and selects the repos it can access. For an existing
+installation, update access only if the intended repo is missing, so check that
+with the CLI and direct them to set it up if they haven't already.
+
 When the owner wants help choosing checks, read the effective policy in the
 dashboard or with `okae config show --json`. Follow the
 [configuration workflow](references/configuration.md). Keep settings that fit.
