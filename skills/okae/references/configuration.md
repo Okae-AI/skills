@@ -29,5 +29,6 @@ inspect `okae.yml` at its recorded `target.head_sha` and the published check
 when available. Today's defaults alone can't verify historical managed settings.
 
 Use the [configuration reference](https://docs.okae.ai/docs/configuration) for supported
-keys and precedence. A repo-wide strictness preset affects multiple concerns. If the
-owner wants finer control than the available settings allow, explain that tradeoff.
+keys and precedence. `strictness` sets every signal's level. To delegate one recurring
+reason, adjust that signal under `signals` rather than the whole preset. Don't recommend
+turning off a security signal.
