@@ -2,7 +2,8 @@
 name: okae
 description: >
   Use to set up Okae, interpret assessment history, decide what a team wants
-  to delegate, tune repository policy, or plan a change for review.
+  to delegate, tune repository policy, or plan, check and open PRs in a repo
+  that uses Okae.
 ---
 
 # Set up and deliver with Okae
@@ -25,6 +26,7 @@ provides delivery patterns; the docs explain the current product and configurati
 | Understand Okae and set up a repository | [Getting started](https://docs.okae.ai/docs), [GitHub App](https://docs.okae.ai/docs/github) |
 | Understand review policy and settings | [Configuration](https://docs.okae.ai/docs/configuration), [configuration workflow](references/configuration.md) |
 | Install the App or troubleshoot an assessment | [Troubleshooting](https://docs.okae.ai/docs/troubleshooting), [bundled installation and verification](references/installation.md) |
+| Run a preflight before a PR or add an agent hook | [Use Okae with a coding agent](https://docs.okae.ai/docs/cli#use-okae-with-a-coding-agent) |
 
 The docs own setting definitions and current product behaviour; bundled references guide
 the workflow. If live docs are unavailable, inspect existing configuration and available
@@ -37,20 +39,46 @@ Start with the outcome the user wants and the repository's instructions. Inspect
 parts of the code and tests needed to deliver it, then identify changes that can stand
 alone and those that must be reviewed together. Preserve the user's scope and workflow.
 
-Choose PR boundaries for a coherent, safe solution. Keep implementation, tests and
-other dependent changes together when they only make sense together. When a larger task
-has independently useful pieces, explain their dependencies, order and the extra cost:
-each separately assessed standard PR can use a credit, while eligible reassessments
-of the same PR are included. Each PR should work on its own and give reviewers the evidence
-they need. Don't split work merely to stay below review limits, move sensitive changes to
-different paths, or change policy to avoid review.
+Read the policy before you plan. Run `okae config show --brief` in the repo, or use the
+summary a session-start hook already added. It names the size limits, protected paths
+and the changes that always need human review. If the CLI isn't signed in or
+the command fails, say so and continue without it.
 
-Use the team's policy to anticipate review and make handoffs clear. For example, explain
-that a necessary permission change will need a person if it touches a protected path.
-Where relevant and available, check effective settings and approval blockers in the
-dashboard and `okae.yml` at the PR head. File values can override saved defaults, and
-the dashboard previews the default branch. If effective settings aren't available, say
-what remains unknown; the published assessment determines the route for the actual PR.
+Infer the team's PR style from the repo before choosing boundaries. Look at a handful of
+recently merged PRs, for example with
+`gh pr list --state merged --limit 20 --json number,title,additions,deletions,changedFiles`,
+and any contribution guide. Match their usual size, scope and description style.
+
+Choose PR boundaries for a coherent, safe solution. Keep implementation, tests and
+other dependent changes together when they only make sense together. Each separately
+assessed PR can use a credit, while eligible reassessments of the same PR are included.
+Split only when it realistically saves review time, such as a routine piece Okae can
+approve on its own while a person reviews the part that needs human review. Explain the
+dependencies, order and extra credits when you propose a split. Each PR must work on its
+own and give reviewers the evidence they need.
+
+Never shape a change to get past review. Avoid these:
+
+- Splitting work to get under size limits or out of a protected path.
+- Staging dormant capability across PRs, such as code a later PR switches on.
+- Separating changes that must deploy together, such as a migration and the code that
+  depends on it.
+- Opening an intermediate PR that breaks the build, tests or behaviour on its own.
+- Weakening, skipping or deleting tests to make a change look routine.
+- Changing `okae.yml` or settings to avoid review, or promising the user an approval.
+
+Before you push or open a PR, commit and run `okae preflight`. It compares your commits with
+the default branch and lists the rules that mean the PR will need human review, with the
+matching files. It sends metadata only and uses no credits. If a rule matches, confirm
+the change is intended. Keep it and tell the user up front that the PR will need human
+review and why. Only drop a change the user didn't ask for that slipped in, such as a
+stray lockfile update. A clean preflight means no rule matched. The assessment still
+reviews the diff, so it doesn't promise approval.
+
+Where relevant and available, check approval blockers in the dashboard and `okae.yml`
+at the PR head. File values can override saved defaults, and the brief summary and preflight
+read the default branch. If effective settings aren't available, say what remains
+unknown; the published assessment determines the route for the actual PR.
 
 For a concrete request, choose the suitable shape and proceed under the user's and
 repository's permissions. Explain a multi-PR plan when it matters; don't turn a simple
